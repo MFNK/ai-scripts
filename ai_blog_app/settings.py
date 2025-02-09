@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-=exa9)mjmjfohf@qile3lt&6ri(wtta39r8hq#olh_1)ct)^v+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ai-scripts-generator-lr1b.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
