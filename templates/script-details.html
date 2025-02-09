@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Script Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 font-sans antialiased">
+    <nav
+      class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md"
+    >
+      <a href="/">
+        <h1 class="text-2xl font-bold">AI Short Scripts Generator</h1>
+      </a>
+      <div class="space-x-4">
+        <a href="/script-list" class="hover:text-gray-300 transition"
+          >Saved Scripts</a
+        >
+        <a href="#" class="hover:text-gray-300 transition">Logout</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-10 px-4 sm:px-0">
+      <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <section>
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+            Blog Post Details
+          </h2>
+          <div class="border border-gray-300 p-6 rounded-lg bg-gray-50">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">
+              {{script_item_detail.youtube_title}}
+            </h3>
+            <p class="text-gray-700 leading-relaxed">
+              {{script_item_detail.generated_content}}
+            </p>
+            <hr class="my-6 border-gray-300" />
+            <h4 class="text-lg font-semibold text-gray-800">YouTube Title</h4>
+            <p class="text-gray-700">{{script_item_detail.youtube_title}}</p>
+            <h4 class="text-lg font-semibold text-gray-800 mt-4">
+              YouTube Link
+            </h4>
+            <a
+              href="{{script_item_detail.youtube_link}}"
+              class="text-blue-600 hover:underline break-all"
+            >
+              {{script_item_detail.youtube_link}}
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <footer
+      class="text-center p-4 text-gray-600 mt-10 border-t border-gray-300"
+    >
+      Made by Mohammed Kiani
+    </footer>
+  </body>
+</html>

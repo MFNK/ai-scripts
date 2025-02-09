@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Shorts Script Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(255, 255, 255, 0.3);
+        border-top: 5px solid #2563eb;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    </style>
+  </head>
+  <body class="flex flex-col min-h-screen bg-gray-50 font-sans antialiased">
+    <!-- Navbar -->
+    <nav
+      class="bg-blue-600 p-4 text-white flex justify-between items-center shadow-md"
+    >
+      <a href="/">
+        <h1 class="text-2xl font-bold">AI Short Scripts Generator</h1>
+      </a>
+      <div class="space-x-4">
+        <span class="text-gray-200">Welcome, {{ user.username }}</span>
+        <a href="/script-list" class="hover:text-gray-300 transition"
+          >Saved Scripts</a
+        >
+        <a href="{% url 'logout' %}" class="hover:text-gray-300 transition"
+          >Logout</a
+        >
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <div class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
+      <div
+        class="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-lg transform transition hover:scale-105"
+      >
+        <!-- Intro section -->
+        <div class="text-center">
+          <h2 class="text-3xl font-semibold text-gray-800">
+            Welcome to AI Scripts Generator
+          </h2>
+          <p class="text-gray-600 mt-2">
+            Generate high-quality AI-generated scripts for Tiktoks/YouTube
+            shorts from YouTube videos.
+          </p>
+        </div>
+
+        <!-- YouTube Link Section -->
+        <div class="mt-6">
+          <h2 class="font-semibold text-lg text-gray-700">
+            Enter YouTube Video Link
+          </h2>
+          <div class="flex mt-3">
+            <input
+              id="youtubeLink"
+              type="url"
+              placeholder="Paste YouTube Link..."
+              class="flex-grow p-3 border border-gray-300 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <button
+              id="generateBlogButton"
+              class="bg-blue-600 text-white px-6 py-3 rounded-r-lg hover:bg-blue-700 transition"
+            >
+              Generate
+            </button>
+          </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading-circle" class="hidden flex justify-center mt-6">
+          <div class="spinner"></div>
+        </div>
+
+        <!-- Display Generated Blog -->
+        <section class="mt-10">
+          <h2 class="text-xl font-semibold text-gray-800">
+            Generated Blog Article
+          </h2>
+          <div id="blogContent" class="mt-4 text-gray-700 space-y-4"></div>
+        </section>
+      </div>
+    </div>
+
+    <footer class="text-center p-4 text-gray-600 mt-6">
+      Made by Mohammed Kiani
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+      document
+        .getElementById("generateBlogButton")
+        .addEventListener("click", async () => {
+          const youtubeLink = document.getElementById("youtubeLink").value;
+          const blogContent = document.getElementById("blogContent");
+          const loadingCircle = document.getElementById("loading-circle");
+
+          if (youtubeLink) {
+            loadingCircle.classList.remove("hidden");
+            blogContent.innerHTML = "";
+
+            try {
+              const response = await fetch("/generate-blog", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ link: youtubeLink }),
+              });
+              const data = await response.json();
+              blogContent.innerHTML = data.content;
+            } catch (error) {
+              console.error("Error occurred:", error);
+              alert("Something went wrong. Please try again later");
+            }
+            loadingCircle.classList.add("hidden");
+          } else {
+            alert("Please enter a YouTube link.");
+          }
+        });
+    </script>
+  </body>
+</html>
