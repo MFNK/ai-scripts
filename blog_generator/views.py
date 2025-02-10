@@ -70,7 +70,7 @@ def yt_title(link):
 
 def download_audio(link):
     try:
-        yt = YouTube(link, use_po_token=True)
+        yt = YouTube(link)
         video = yt.streams.filter(only_audio=True).first()
         if not video:
             print("No audio stream found")
